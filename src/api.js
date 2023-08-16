@@ -66,9 +66,9 @@ router.put("/blog/:id", (req, res) => {
 
 app.use("/.netlify/functions/api", router);
 
-// module.exports.handler = serverless(app);
+module.exports.handler = serverless(app);
 
 //to debug locally
-app.listen(3000, () => {
-  console.log("running");
-});
+// app.listen(3000, () => {
+//   console.log("running");
+// });
