@@ -1,5 +1,4 @@
-const dotenv = require("dotenv");
-dotenv.config();
+require("dotenv").config();
 const express = require("express");
 const serverless = require("serverless-http");
 const pg = require("pg");
@@ -17,6 +16,7 @@ const credentials = {
   ssl: process.env.DB_SSL,
 };
 
+console.log("credential", credentials);
 const pool = new pg.Pool(credentials);
 
 const router = express.Router();
@@ -66,9 +66,9 @@ router.put("/blog/:id", (req, res) => {
 
 app.use("/.netlify/functions/api", router);
 
-module.exports.handler = serverless(app);
+// module.exports.handler = serverless(app);
 
 //to debug locally
-// app.listen(3000, () => {
-//   console.log("running");
-// });
+app.listen(3000, () => {
+  console.log("running");
+});
