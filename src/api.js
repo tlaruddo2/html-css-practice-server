@@ -13,9 +13,9 @@ app.use("/.netlify/functions/api", rootRouter);
 app.use("/.netlify/functions/api/blog", blogRouter);
 app.use("/.netlify/functions/api/email", emailRouter);
 
-// module.exports.handler = serverless(app);
+module.exports.handler = serverless(app);
 
 //to debug locally
-app.listen(3000, () => {
-  console.log("running");
-});
+// app.listen(3000, () => {
+//   console.log("running");
+// });
