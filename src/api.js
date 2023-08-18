@@ -4,6 +4,15 @@ const serverless = require("serverless-http");
 const pg = require("pg");
 const cors = require("cors");
 const app = express();
+const nodemailer = require("nodemailer");
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.DB_USER,
+    pass: process.env.DB_PASSWORD,
+  },
+});
 
 app.use(express.json());
 app.use(cors());
@@ -62,6 +71,24 @@ router.put("/blog/:id", (req, res) => {
   pool.query(updateBlogById, [content, id], (error, results) => {
     if (error) throw error;
     res.status(200).json(results.row);
+  });
+});
+
+router.post("/email", (req, res) => {
+  const { from, subject, text } = req.body;
+  const mailOptions = {
+    from: "tlaruddo2test@gmail.com",
+    to: "tlaruddo2@gmail.com",
+    subject: subject,
+    text: text,
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      throw error;
+    } else {
+      res.status(200).send(info.response);
+    }
   });
 });
 
